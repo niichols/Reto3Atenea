@@ -1,5 +1,6 @@
 package com.example.reto3.controller;
 
+import com.example.reto3.Model.Reservation;
 import com.example.reto3.Model.Score;
 import com.example.reto3.Service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +30,17 @@ public class ScoreController {
     public Score save(@RequestBody Score score) {
         return scoreService.save(score);
     }
+
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Score update (@RequestBody Score score){
+        return scoreService.update(score);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete (@PathVariable int id){
+        return scoreService.delete(id);
+    }
+
 }

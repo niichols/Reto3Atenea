@@ -25,13 +25,12 @@ public class GamaService {
             Optional<Gama> gamaEncontrado = getGama(gama.getIdGama());
             if (gamaEncontrado.isEmpty()){
                 return gamaRepository.save(gama);
-            }else {
-                return gama;
             }
+                return gama;
         }
     }
 
-    public Gama Update(Gama gama) {
+    public Gama update (Gama gama) {
         if (gama.getIdGama() != null) {
             Optional<Gama> gamaEncontrado = getGama(gama.getIdGama());
 
@@ -52,7 +51,7 @@ public class GamaService {
         }
     }
 
-    public boolean deleteGama(int id){
+    public boolean delete (int id){
         Boolean respuesta = getGama(id).map(gama -> {
             gamaRepository.delete(gama);
             return true;

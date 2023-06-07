@@ -38,7 +38,7 @@ public class CarService {
 
     //Validaciones del metodo de Actualizar
 
-    public Car Update(Car car) {
+    public Car update (Car car) {
         if (car.getIdCar() != null) { //Si el id que nos llego es diferente a null
             Optional<Car> carEncontrado = getCar(car.getIdCar()); //Buscar ese Id
             if (carEncontrado.isPresent()) {  //Si el id esta presente o si existe
@@ -64,18 +64,17 @@ public class CarService {
             } else {
                 return car;
             }
-        } else {  //En caso contrario que el id del carro que pasaron estubiera en null y no exista
+        }   //En caso contrario que el id del carro que pasaron estubiera en null y no exista
             return car;
-        }
+
     }
 
     //Validaciones del metodo de Eliminar
-    public boolean deleteCar(int id) {
+    public boolean delete (int id) {
         Boolean respuesta = getCar(id).map(car -> {  //boolean llamado respuesta con el id que se obtiene y se mapea
             carRepository.delete(car);  //funcion flecha, intentar eliminar el carro que llego
             return true;  //retornar true si se elimina
         }).orElse(false);  //De lo contrario retorne la respuesta en false
         return respuesta;
     }
-
 }

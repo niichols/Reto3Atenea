@@ -26,13 +26,12 @@ public class ScoreService {
             Optional<Score> scoreEncontrado = getScore(score.getIdScore());
             if (scoreEncontrado.isEmpty()){
                 return scoreRepository.save(score);
-            }else {
-                return score;
             }
+                return score;
         }
     }
 
-    public Score Update(Score score) {
+    public Score update (Score score) {
         if (score.getIdScore() != null) {
             Optional<Score> scoreEncontrado = getScore(score.getIdScore());
 
@@ -53,7 +52,12 @@ public class ScoreService {
         }
     }
 
-    public boolean deleteStore(int id){
+    public boolean delete (int id){
+        List<Score> a = getAll();
+        a.forEach(score -> {
+            System.out.println(score.getIdScore());
+        });
+
         Boolean respuesta = getScore(id).map(score -> {
             scoreRepository.delete(score);
             return true;

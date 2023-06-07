@@ -32,7 +32,7 @@ public class ClientService {
         }
     }
 
-    public Client Update(Client client) {
+    public Client update (Client client) {
         if (client.getIdClient() != null) {
             Optional<Client> clientEncontrado = getClient(client.getIdClient());
 
@@ -54,12 +54,11 @@ public class ClientService {
             } else {
                 return client;
             }
-        } else {
-            return client;
         }
+            return client;
     }
 
-    public boolean deleteClient(int id){
+    public boolean delete (int id){
         Boolean respuesta = getClient(id).map(client -> {
             clientRepository.delete(client);
             return true;

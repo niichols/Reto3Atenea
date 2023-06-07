@@ -1,7 +1,7 @@
 package com.example.reto3.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import javax.xml.crypto.Data;
 import java.util.Date;

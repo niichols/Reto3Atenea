@@ -32,7 +32,7 @@ public class ReservationService {
         }
     }
 
-    public Reservation Update(Reservation reservation) {
+    public Reservation update (Reservation reservation) {
         if (reservation.getIdReservation() != null) {
             Optional<Reservation> reservationEncontrado = getReservation(reservation.getIdReservation());
 
@@ -52,12 +52,11 @@ public class ReservationService {
             } else {
                 return reservation;
             }
-        } else {
-            return reservation;
         }
+            return reservation;
     }
 
-    public boolean deleteGama(int id){
+    public boolean delete (int id){
         Boolean respuesta = getReservation(id).map(reservation -> {
             reservationRepository.delete(reservation);
             return true;

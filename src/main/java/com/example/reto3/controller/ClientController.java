@@ -1,5 +1,6 @@
 package com.example.reto3.controller;
 
+import com.example.reto3.Model.Car;
 import com.example.reto3.Model.Client;
 import com.example.reto3.Service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +32,16 @@ public class ClientController {
     public Client save(@RequestBody Client client) {
             return clientService.save(client);
         }
+
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Client update (@RequestBody Client client){
+        return clientService.update(client);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete (@PathVariable int id){
+        return clientService.delete(id);
+    }
 }
