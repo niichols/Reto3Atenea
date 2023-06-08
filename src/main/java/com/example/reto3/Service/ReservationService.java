@@ -38,8 +38,8 @@ public class ReservationService {
 
             if (reservationEncontrado.isPresent()) {
 
-                if (reservation.getStarDate() != null) {
-                    reservationEncontrado.get().setStarDate(reservation.getStarDate());
+                if (reservation.getStartDate() != null) {
+                    reservationEncontrado.get().setStartDate(reservation.getStartDate());
                 }
                 if (reservation.getDevolutionDate() != null) {
                     reservationEncontrado.get().setDevolutionDate(reservation.getDevolutionDate());

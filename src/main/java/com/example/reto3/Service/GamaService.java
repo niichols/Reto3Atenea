@@ -40,7 +40,7 @@ public class GamaService {
                     gamaEncontrado.get().setName(gama.getName());
                 }
                 if (gama.getDescription() != null) {
-                    gamaEncontrado.get().setName(gama.getName());
+                    gamaEncontrado.get().setDescription(gama.getDescription());
                 }
                 return gamaRepository.save(gamaEncontrado.get());
             } else {
