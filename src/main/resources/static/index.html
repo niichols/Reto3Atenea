@@ -19,11 +19,13 @@
     <button onclick="location.href='homePage.html';">Continuar</button>
 </div>
 </body>
+
 <script type="text/javascript">
     $.get("/user", function (data){
         $("#usuario").html(data.name);
-        $(".unauthenticated").hide()
-        $(".authenticated").show()
+        $(".unauthenticated").hide();
+        $(".authenticated").show();
     });
+
 </script>
 </html>

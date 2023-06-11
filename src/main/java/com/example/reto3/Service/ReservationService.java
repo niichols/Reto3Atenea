@@ -1,38 +1,47 @@
 package com.example.reto3.Service;
 
+import com.example.reto3.Model.Client;
+import com.example.reto3.Model.DTOs.CompletedAndCancelled;
+import com.example.reto3.Model.DTOs.TotalAndClient;
 import com.example.reto3.Model.Reservation;
 import com.example.reto3.Repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
 import org.springframework.stereotype.Service;
 
+
+import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    public List<Reservation> getAll(){
+    public List<Reservation> getAll() {
         return reservationRepository.findAll();
     }
-    public Optional<Reservation> getReservation(int id){
+
+    public Optional<Reservation> getReservation(int id) {
         return reservationRepository.getReservation(id);
     }
-    public Reservation save(Reservation reservation){
-        if (reservation.getIdReservation() == null){
+
+    public Reservation save(Reservation reservation) {
+        if (reservation.getIdReservation() == null) {
             return reservationRepository.save(reservation);
-        }else {
+        } else {
             Optional<Reservation> reservationEncontrado = getReservation(reservation.getIdReservation());
-            if (reservationEncontrado.isEmpty()){
+            if (reservationEncontrado.isEmpty()) {
                 return reservationRepository.save(reservation);
-            }else {
+            } else {
                 return reservation;
             }
         }
     }
 
-    public Reservation update (Reservation reservation) {
+    public Reservation update(Reservation reservation) {
         if (reservation.getIdReservation() != null) {
             Optional<Reservation> reservationEncontrado = getReservation(reservation.getIdReservation());
 
@@ -53,10 +62,10 @@ public class ReservationService {
                 return reservation;
             }
         }
-            return reservation;
+        return reservation;
     }
 
-    public boolean delete (int id){
+    public boolean delete(int id) {
         Boolean respuesta = getReservation(id).map(reservation -> {
             reservationRepository.delete(reservation);
             return true;
@@ -64,4 +73,47 @@ public class ReservationService {
         return respuesta;
     }
 
+    //Reto 5
+    public List<Reservation> getReservationBetweenDatesReport(String fechaA, String fechaB) {
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date a = new Date();
+        Date b = new Date();
+        try {
+            a = parser.parse(fechaA);
+            b = parser.parse(fechaB);
+        } catch (ParseException exception) {
+            exception.printStackTrace();
+        }
+        if (a.before(b)) {
+            return reservationRepository.getReservationsBetweenDates(a, b);
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public CompletedAndCancelled getReservationStatusReport() {
+        List<Reservation> competed = reservationRepository.getReservationsByStatus("completed");
+        List<Reservation> cancelled = reservationRepository.getReservationsByStatus("cancelled");
+
+        Long cantidadCompletada = (long) competed.size();
+
+        Long cantidadCancelada = (long) cancelled.size();
+
+        CompletedAndCancelled respuesta = new CompletedAndCancelled(cantidadCompletada, cantidadCancelada);
+
+        return respuesta;
+    }
+
+    public List<TotalAndClient> getTopClientsReport(){
+        List<TotalAndClient> respuesta = new ArrayList<>();
+
+        List<Object[]> reporte = reservationRepository.getTotalReservationsByClient();
+
+        for (Object[] pareja: reporte) {
+            respuesta.add(new TotalAndClient( (Long) pareja[1], (Client) pareja[0] ));
+        }
+        return respuesta;
+
+    }
 }
