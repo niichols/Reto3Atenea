@@ -2,20 +2,20 @@ package com.example.reto3.Model.DTOs;
 
 public class CompletedAndCancelled {
 
-    private Long clomplted;
+    private Long completed;
     private Long cancelled;
 
-    public CompletedAndCancelled(Long clomplted, Long cancelled) {
-        this.clomplted = clomplted;
+    public CompletedAndCancelled(Long completed, Long cancelled) {
+        this.completed = completed;
         this.cancelled = cancelled;
     }
 
-    public Long getClomplted() {
-        return clomplted;
+    public Long getCompleted() {
+        return completed;
     }
 
-    public void setClomplted(Long clomplted) {
-        this.clomplted = clomplted;
+    public void setClompleted(Long clompleted) {
+        this.completed = clompleted;
     }
 
     public Long getCancelled() {
